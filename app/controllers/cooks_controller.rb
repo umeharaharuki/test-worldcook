@@ -21,6 +21,8 @@ class CooksController < ApplicationController
   end
 
   def show
+    @review = Review.new
+    @reviews = @cook.reviews.includes(:user)
   end
 
   def edit
