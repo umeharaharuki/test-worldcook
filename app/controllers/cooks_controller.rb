@@ -20,6 +20,26 @@ class CooksController < ApplicationController
     end
   end
 
+  def show
+    @review = Review.new
+    @reviews = @cook.reviews.includes(:user)
+  end
+
+  def edit
+  end
+
+  def update
+    if @cook.update(cook_params)
+      redirect_to cook_path
+    else
+      render :edit
+    end
+  end
+
+  def destroy
+    redirect_to root_path if @cook.destroy
+  end
+
   private
 
   def cook_params
@@ -28,5 +48,9 @@ class CooksController < ApplicationController
 
   def set_cook
     @cook = Cook.find(params[:id])
+  end
+
+  def move_to_index
+    redirect_to action: :index if current_user.id != @cook.user_id
   end
 end

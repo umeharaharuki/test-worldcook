@@ -4,6 +4,7 @@ class Cook < ApplicationRecord
   belongs_to :serving
 
   has_one_attached :image
+  has_many :reviews
   belongs_to :user
 
   with_options presence: true do
